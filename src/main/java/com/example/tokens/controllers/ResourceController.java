@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/resource")
 @RequiredArgsConstructor
-public class TestController {
+public class ResourceController {
 
     @GetMapping("/public")
     public ResponseEntity<String> sayHelloPublic() {
@@ -24,10 +24,5 @@ public class TestController {
     @GetMapping("/admin")
     public ResponseEntity<String> sayHelloAdmin() {
         return ResponseEntity.ok("Hello from admin endpoint");
-    }
-
-    @GetMapping("/authenticated")
-    public ResponseEntity<String> sayHelloAuthenticated() {
-        return ResponseEntity.ok("Hello from authenticated endpoint");
     }
 }

@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -35,7 +38,9 @@ public class AuthenticationService {
                 .role(Role.User)
                 .build();
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        Map<String, Object> roleMap = getRoleM(user);
+
+        var jwtToken = jwtService.generateToken(roleMap, user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -51,9 +56,16 @@ public class AuthenticationService {
 
         var user = userRepository.findByEmail(authRequest.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        var jwtToken = jwtService.generateToken(user);
+        Map<String, Object> roleMap = getRoleM(user);
+        var jwtToken = jwtService.generateToken(roleMap, user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    private Map<String, Object> getRoleM(User user) {
+        Map<String, Object> roleMap = new HashMap<>();
+        roleMap.put("Role", user.getRole());
+        return roleMap;
     }
 }
