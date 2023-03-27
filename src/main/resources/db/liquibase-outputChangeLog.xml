@@ -1,0 +1,44 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Michał (generated)" id="1679942256533-1">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="50" maxValue="9223372036854775807" minValue="1" sequenceName="user_entity_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="Michał (generated)" id="1679942256533-2">
+        <createTable tableName="user_entity">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_entity_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="MPA">
+        <insert tableName="user_entity">
+            <column name="id">1</column>
+            <column name="last_name">test</column>
+            <column name="first_name">test</column>
+            <column name="email">test@test.com</column>
+            <column name="password">$2a$12$WK3mbbGrpqNx2oBKFvomGufCtrMZnqkm3Oh7j3r3ghVTtvK8c4T5q</column>
+            <column name="role">Admin</column>
+        </insert>
+        <insert tableName="user_entity">
+            <column name="id">2</column>
+            <column name="last_name">test2</column>
+            <column name="first_name">test2</column>
+            <column name="email">test2@test.com</column>
+            <column name="password">$2a$12$WK3mbbGrpqNx2oBKFvomGufCtrMZnqkm3Oh7j3r3ghVTtvK8c4T5q</column>
+            <column name="role">User</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
