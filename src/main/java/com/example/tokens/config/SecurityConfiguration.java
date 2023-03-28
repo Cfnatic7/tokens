@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -22,19 +23,24 @@ public class SecurityConfiguration {
 
     private final AuthenticationProvider authenticationProvider;
 
+    private final CorsConfigurationSource corsConfigurationSource;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors()
+                .configurationSource(corsConfigurationSource)
+                .and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
-                .requestMatchers("/test/public")
+                .requestMatchers("/resource/public")
                 .permitAll()
-                .requestMatchers("/test/user")
+                .requestMatchers("/resource/user")
                 .hasAnyAuthority(Role.User.name(), Role.Admin.name())
-                .requestMatchers("/test/admin")
+                .requestMatchers("/resource/admin")
                 .hasAuthority(Role.Admin.name())
                 .anyRequest()
                 .authenticated()
